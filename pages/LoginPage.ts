@@ -27,6 +27,7 @@ export class LoginPage extends BasePage {
         await this.baseFillField(this.usernameInput, "standard_user");
     }
 
+    //Escribimos la contraseña
     public async loginFillPassword(): Promise<void> {
         await this.baseFillField(this.passwordInput, "secret_sauce");
     }
@@ -36,10 +37,18 @@ export class LoginPage extends BasePage {
         await this.baseClickElement(this.loginButton);
     }
 
-    //Obtenemos el texto de validación
+    //Obtenemos un elemento desde el HomePage para saber si el login fue exitoso
     public async getTextFromInventoryButton(): Promise<string> {
         let text = await this.baseGetTextFromElement(this.validateInventoryButton);
         return text;
+    }
+
+    //Tomamos una captura de pantalla y la guardamos
+    public async takeScreenshot(): Promise<Buffer> {
+       return await this.baseTakeScreenshot({
+            'fullPage': true,
+            'type': 'png'            
+        });
     }
 
 

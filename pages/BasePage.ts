@@ -28,6 +28,11 @@ export class BasePage {
         let text = await this.page.textContent(locator)
         return text ? text : ''
     }
+
+    //Metodo para tomar una captura de pantalla
+    public async baseTakeScreenshot(pathData: object): Promise<Buffer> {
+        return await this.page.screenshot(pathData);
+    }
     
 
 }
