@@ -1,0 +1,24 @@
+{
+  "name": "cl-autoweb-demostration",
+  "version": "1.0.0",
+  "description": "Demo Automatización WEB",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FVlejandro/cl-autoweb-demostration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FVlejandro/cl-autoweb-demostration/issues"
+  },
+  "homepage": "https://github.com/FVlejandro/cl-autoweb-demostration#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.14.1",
+    "allure-playwright": "^3.2.1",
+    "dotenv": "^16.5.0"
+  }
+}
