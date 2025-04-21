@@ -6,6 +6,7 @@ import { BasePage } from "./BasePage";
 
 export class LoginPage extends BasePage {
 
+    // Obtenemos los locators y la url para la página de login
     protected usernameInput: string = LoginLocators.usernameInput;
     protected passwordInput: string = LoginLocators.passwordInput;
     protected loginButton: string = LoginLocators.loginButton;
