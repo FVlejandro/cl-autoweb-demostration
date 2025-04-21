@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"fa500ef0211c965f904b27c4331dd496","name":"Web Test Suite","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
+{"total":1,"items":[{"uid":"225b1ff38092eff7a9f0c9c6929b3d94","name":"Frontend Testing con playwright","statistic":{"failed":0,"broken":0,"skipped":0,"passed":9,"unknown":0,"total":9}}]}
