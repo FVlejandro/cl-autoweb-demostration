@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Apr 21 00:25:30 GMT 2025","Mon Apr 21 00:25:31 GMT 2025","684","chromium","login.spec.ts","","","","Login Test",""
