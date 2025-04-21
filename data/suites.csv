@@ -1,2 +1,2 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","755","Login Test","chromium","Mon Apr 21 01:04:12 UTC 2025","passed","Mon Apr 21 01:04:13 UTC 2025","","login.spec.ts","",""
+"","663","Login Test","chromium","Mon Apr 21 01:12:16 UTC 2025","passed","Mon Apr 21 01:12:16 UTC 2025","","login.spec.ts","",""
