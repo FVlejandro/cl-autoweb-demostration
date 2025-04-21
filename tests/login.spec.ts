@@ -9,10 +9,10 @@ test('Login Test', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Creamos un Step en el reporte de Allure
-    await allure.step('Navegamos al sitio web', async () => {       
+    await allure.step('Navegamos al sitio web', async () => {
         await loginPage.navigateToLoginPage(); // --> Metodo proveniente de LoginPage
     });
-
+    
     // Creamos un Step en el reporte de Allure con un Substep Dentro
     await allure.step('Ingresamos Credenciales', async () => {
         // Substep  Ingreso Usuario
