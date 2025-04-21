@@ -4,53 +4,43 @@ import * as allure from 'allure-js-commons'
 
 
 test('Login Test', async ({ page }) => {
-
-    // Creamos una instancia de la clase LoginPage
+    
     const loginPage = new LoginPage(page);
 
-    // Creamos un Step en el reporte de Allure
-    await allure.step('Navegamos al sitio web', async () => {
-        await loginPage.navigateToLoginPage(); // --> Metodo proveniente de LoginPage
-    });
+    await allure.parentSuite('Web Test Suite');
+    await allure.suite('Login Test Suite');
+    await allure.displayName('Login Success Test');
+    await allure.description('Test para validar el login exitoso en la pagina de Swag Labs');    
     
-    // Creamos un Step en el reporte de Allure con un Substep Dentro
-    await allure.step('Ingresamos Credenciales', async () => {
-        // Substep  Ingreso Usuario
-        await allure.step('Validamos el campo de usuario', async (ctx) => {             
-            ctx.parameter('Usuario', 'standard_user');
-                await loginPage.loginFillUsername(); // --> Metodo proveniente de LoginPage
-        });
-        // Substep Ingreso Contraseña
-        await allure.step('Validamos el campo de contraseña', async (ctx) => {
-            ctx.parameter('Contraseña','secret_sauce');
-            await loginPage.loginFillPassword(); // --> Metodo proveniente de LoginPage
-        });
 
+    await allure.step('Navegamos al Login', async() => {
+        await loginPage.navigateToLoginPage();
     });
 
-    // Creamos un Step en el reporte de Allure
-    await allure.step('Hacemos clic en el botón de login', async () => {
-        await loginPage.loginClickButton(); // --> Metodo proveniente de LoginPage
+    await allure.step('Escribimos el usuario', async() => {
+        await loginPage.loginFillUsername();
     });
 
-    // Creamos un Step en el reporte de Allure
-    await allure.step('Validamos Inicio de sesión Exitoso', async () => {
+    await allure.step('Escribimos la contraseña', async() => {
+        await loginPage.loginFillPassword();
+    });
 
-        const text = await loginPage.getTextFromInventoryButton(); // --> Metodo proveniente de LoginPage
-        expect(text).toBe('Add to cart'); // Assertion para validar el texto del botón
+    await allure.step('Click en el boton de login', async() => {
+        await loginPage.loginClickButton();
+    });
 
-        //Tomamos una captura de pantalla y la guardamos
-        const loginPageBuffer = await loginPage.takeScreenshot(); // --> Metodo proveniente de LoginPage
+    await allure.step('Validamos que el login fue exitoso', async() => {
+        const text = await loginPage.getTextFromInventoryButton();
+        expect(text).toBe('Add to cart');
 
-        allure.attachment( // --> Adjuntamos la captura de pantalla al reporte
-            'Captura de Pantalla',
-            loginPageBuffer,
-            {
-                contentType: allure.ContentType.PNG,
-                fileExtension: 'png'
+        const loginPageBuffer = await loginPage.takeScreenshot();
+        allure.attachment('Captura de Pantalla', loginPageBuffer, {
+            contentType: allure.ContentType.PNG,
+            fileExtension: 'png'
             }
-        )        
-        
-    });
-
+        )
+    });      
+    
 });
+
+
