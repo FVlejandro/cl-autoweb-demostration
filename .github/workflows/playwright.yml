@@ -16,34 +16,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Instala Node.js
+      # 2. Setup Node.js y dependencias
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-
-      # 3. Instalamos dependencias
       - name: Install dependencies
         run: npm ci
 
-      # 4. Instalamos navegadores de Playwright
+      # 3. Instalamos navegadores de Playwright
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 5. Ejecuta tests con Allure → genera ./allure-results
+      # 4. Ejecuta tests con Allure → crea ./allure-results
       - name: Run Playwright tests with Allure reporter
         run: npx playwright test --reporter=list,allure-playwright
 
-      # 6. DEBUG: listar archivos/carpetas para confirmar allure-results
+      # 5. (Opcional) Debug workspace para confirmar que allure-results existe
       - name: Debug workspace
         if: always()
         run: |
-          echo "=== Files in workspace ==="
+          echo "Files:"
           find . -maxdepth 2 -type f
-          echo "=== Directories in workspace ==="
+          echo "Dirs:"
           find . -maxdepth 2 -type d
 
-      # 7. Carga historial previo desde gh‑pages (no falla si aún no existe)
+      # 6. Carga historial previo desde gh‑pages
       - name: Load test report history
         if: always()
         continue-on-error: true
@@ -54,24 +52,39 @@ jobs:
           ref:        gh-pages
           path:       allure-history
 
-      # 8. Construye el reporte Allure (historial + resultados actuales)
+      # 7. Construye el reporte Allure (historial + actual)
       - name: Build Allure Report
         if: always()
-        uses: simple-elf/allure-report-action@v1.12
+        uses: simple-elf/allure-report-action@v1.7
         with:
-          gh_pages:       allure-history      # carpeta con el historial
-          allure_results: allure-results      # carpeta generada por Playwright
-          allure_history: allure-report       # carpeta donde vuelca el HTML
+          # carpeta donde hicimos checkout de gh‑pages
+          gh_pages:        allure-history  
+          # carpeta con los JSON/attachments de Allure
+          allure_results:  allure-results  
+          # carpeta donde vuelca el HTML de esta corrida
+          allure_report:   allure-report  
+          # carpeta final que contendrá historial + HTML para publicar
+          allure_history:  allure-history  :contentReference[oaicite:0]{index=0}
 
-      # 9. Publica en gh‑pages para GitHub Pages
+      # 8. Publica en gh‑pages para GitHub Pages
       - name: Publish to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token:       ${{ secrets.GITHUB_TOKEN }}
           publish_branch:     gh-pages
-          publish_dir:        allure-report
+          publish_dir:        allure-history
           allow_empty_commit: true
+
+      # 9. (Opcional) Artefacto descargable
+      - name: Upload Allure Report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name:       allure-report
+          path:       allure-history
+          retention-days: 30
+
 
 
 
