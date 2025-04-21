@@ -1,46 +1,46 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import * as allure from 'allure-js-commons'
+import { DataUtil } from '../utils/DataFilter';
 
 
 test('Login Test', async ({ page }) => {
-    
-    const loginPage = new LoginPage(page);
 
-    await allure.parentSuite('Web Test Suite');
-    await allure.suite('Login Test Suite');
-    await allure.displayName('Login Success Test');
-    await allure.description('Test para validar el login exitoso en la pagina de Swag Labs');    
-    
+    const loginPage = new LoginPage(page, 'TC001');
+    await loginPage.navigateToLoginPage();
+    await loginPage.loginFillUsername();
+    await loginPage.loginFillPassword();
+    await loginPage.loginClickButton();
 
-    await allure.step('Navegamos al Login', async() => {
-        await loginPage.navigateToLoginPage();
-    });
-
-    await allure.step('Escribimos el usuario', async() => {
-        await loginPage.loginFillUsername();
-    });
-
-    await allure.step('Escribimos la contraseña', async() => {
-        await loginPage.loginFillPassword();
-    });
-
-    await allure.step('Click en el boton de login', async() => {
-        await loginPage.loginClickButton();
-    });
-
-    await allure.step('Validamos que el login fue exitoso', async() => {
-        const text = await loginPage.getTextFromInventoryButton();
-        expect(text).toBe('Add to cart');
-
-        const loginPageBuffer = await loginPage.takeScreenshot();
-        allure.attachment('Captura de Pantalla', loginPageBuffer, {
-            contentType: allure.ContentType.PNG,
-            fileExtension: 'png'
-            }
-        )
-    });      
+    const inventoryText = await loginPage.getTextFromInventoryButton();
+    expect(inventoryText).toBe('Add to cart');
+    await loginPage.takeScreenshot();
     
 });
+
+
+test('Login Test with invalid credentials', async ({ page }) => {
+    const loginPage = new LoginPage(page, 'TC002');
+    await loginPage.navigateToLoginPage();
+    await loginPage.loginFillUsername();
+    await loginPage.loginFillPassword();
+    await loginPage.loginClickButton();
+
+    const errorMessage = await loginPage.getErrorMessage();
+    expect(errorMessage).toBe('Epic sadface: Username and password do not match any user in this service');
+    await loginPage.takeScreenshot();
+});
+
+test('Login Test with empty credentials', async ({ page }) => {
+    const loginPage = new LoginPage(page, 'TC003');
+    await loginPage.navigateToLoginPage();
+    await loginPage.loginClickButton();
+
+    const errorMessage = await loginPage.getErrorMessage();
+    expect(errorMessage).toBe('Epic sadface: Username is required');
+
+    await loginPage.takeScreenshot();
+});
+
 
 
