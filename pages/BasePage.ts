@@ -1,4 +1,5 @@
 import { Page } from 'playwright';
+import * as allure from 'allure-js-commons'
 
 export class BasePage {
 
@@ -8,31 +9,33 @@ export class BasePage {
         this.page = page;
     }
 
-    // Metodo para entregar el URL Context
-    public async baseNavigate(url: string): Promise<void> {
+
+    async baseNavigate(url: string): Promise<void> {
         await this.page.goto(url)
     }
 
-    // Metodo para Escribir en un campo de texto
-    public async baseFillField(locator: string, value: string): Promise<void> {
-        await this.page.fill(locator, value)
+    async clickByIdButton(id: string): Promise<void>{
+        await this.page.locator(`#${id}`).click()
     }
 
-    // Metodo para clickear en un Elemento
-    public async baseClickElement(locator: string): Promise<void> {
-        await this.page.click(locator)
+    async clickByFilterButton(filtro: string, name: string){
+        const productCard = this.page.getByRole('listitem').filter({hasText: `${filtro}`})
+        await productCard.getByRole('button', {name: `${name}`})
     }
 
-    //Metodo para Obtener texto de un elemento
-    public async baseGetTextFromElement(locator: string): Promise<string>{
-        let text = await this.page.textContent(locator)
-        return text ? text : ''
+    async fillByIdInput(id: string, value: string): Promise<void>{
+        await this.page.locator(`#${id}`).fill(value)
     }
 
-    //Metodo para tomar una captura de pantalla
-    public async baseTakeScreenshot(pathData: object): Promise<Buffer> {
-        return await this.page.screenshot(pathData);
+    async clickByRoleButton(name: string): Promise<void>{
+        await this.page.getByRole('button', {name: `${name}`}).click()
     }
+
+    async fillByRoleInput(name: string, value: string): Promise<void>{
+        await this.page.getByRole('textbox', {name: `${name}`}).fill(value)
+    }
+
+
     
 
 }
