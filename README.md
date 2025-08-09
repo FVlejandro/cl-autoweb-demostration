@@ -4,8 +4,7 @@ Proyecto de demostración de automatización de pruebas web utilizando **Playwri
 ---
 
 ## 📌 **Objetivo de esta DEMO**
-Este proyecto es una muestra técnica que ilustra cómo:
-- Diseñar pruebas automatizadas para flujos críticos como el inicio de sesión.
+Este proyecto es una muestra que ilustra cómo:
 - Implementar un diseño modular y escalable basado en el patrón **Page Object Model (POM)**.
 - Generar reportes detallados y visuales con **Allure** para facilitar el análisis de resultados.
 - Utilizar datos dinámicos desde archivos **JSON** para pruebas parametrizadas.
@@ -16,11 +15,6 @@ Este proyecto es una muestra técnica que ilustra cómo:
 
 ### 🎯 **Diseño basado en Page Objects**
 Las pruebas están organizadas en clases que encapsulan la lógica de interacción con la interfaz, facilitando el mantenimiento y la escalabilidad del proyecto.
-
----
-
-### 📂 **Datos de prueba dinámicos**
-Los datos de prueba se cargan desde archivos JSON, permitiendo la reutilización y la parametrización de casos de prueba.
 
 ---
 
