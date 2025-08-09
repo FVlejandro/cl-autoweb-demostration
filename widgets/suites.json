@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"225b1ff38092eff7a9f0c9c6929b3d94","name":"Frontend Testing con playwright","statistic":{"failed":0,"broken":0,"skipped":0,"passed":9,"unknown":0,"total":9}}]}
+{"total":2,"items":[{"uid":"4bc29e773c21b80542f9f8014379dba0","name":"Chrome Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":4,"unknown":0,"total":4}},{"uid":"d401ab06724669b2d5ce10d8084d80a2","name":"Mozilla Firefox Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":4,"unknown":0,"total":4}}]}
